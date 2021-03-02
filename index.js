@@ -35,8 +35,32 @@ app.get('', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })
 
+//**********************************
+// Shows a list from the array on a new page
+// **********************************
+
 app.get('/posts', (req,res)=>{
     res.render('posts/index', {posts})
+})
+
+// **********************************
+// NEW - renders a form
+// **********************************
+
+app.get('/posts/new', (req,res) =>{
+    res.render('posts/new')
+})
+
+app.post('/posts', (req,res) =>{
+    const {username, post} = req.body; 
+    posts.push({username, post})
+    res.redirect('/posts');
+})
+
+app.get('/posts/:id', (req,res)=> {
+    const { id } = req.params;
+    posts.find(p => p.id === parseInt(id))
+    res.render('posts/show', {posts})
 })
 
 app.listen(3001, () => {

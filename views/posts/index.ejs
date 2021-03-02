@@ -11,9 +11,12 @@
     <ul>
         <% for(let p of posts) {%>
         <li>
-            <%=p.post%> - <b> <%=p.username%></b>
+            <%=p.post%> - <b> 
+            <%=p.username%></b>
+            <a href="/posts/ <%= p.id%> "> Details </a>
         </li>
     <%}%>
     </ul>
+    <a href="/posts/new"> New Comment</a>
 </body>
 </html>
