@@ -1,5 +1,4 @@
 const express = require('express');
-const { UpgradeRequired } = require('http-errors');
 const app = express();
 const path = require('path');
 const {v4: uuid} = require('uuid');
@@ -53,14 +52,16 @@ app.get('/posts/new', (req,res) =>{
 
 app.post('/posts', (req,res) =>{
     const {username, post} = req.body; 
-    posts.push({username, post})
+    posts.push({username, post, id:uuid()})
     res.redirect('/posts');
 })
 
 app.get('/posts/:id', (req,res)=> {
     const { id } = req.params;
-    posts.find(p => p.id === parseInt(id))
-    res.render('posts/show', {posts})
+    console.log(id)
+    const post =  posts.find(p => p.id === id)
+    console.log(post)
+    res.render('posts/show', { post })
 })
 
 app.listen(3001, () => {
